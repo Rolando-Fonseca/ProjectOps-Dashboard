@@ -1,0 +1,27 @@
+{
+  "kpis": [
+    { "label": "Active Projects", "value": 3, "change": 1, "trend": "up" },
+    { "label": "Open Tasks", "value": 7, "change": -2, "trend": "down" },
+    { "label": "Team Members", "value": 6, "change": 0, "trend": "neutral" },
+    { "label": "Completion Rate", "value": 72, "change": 5, "trend": "up" }
+  ],
+  "tasksByStatus": [
+    { "status": "Todo", "count": 4 },
+    { "status": "In Progress", "count": 3 },
+    { "status": "Review", "count": 1 },
+    { "status": "Done", "count": 2 }
+  ],
+  "projectsByStatus": [
+    { "status": "Active", "count": 3 },
+    { "status": "On Hold", "count": 1 },
+    { "status": "Completed", "count": 1 }
+  ],
+  "weeklyVelocity": [
+    { "week": "W1", "completed": 3 },
+    { "week": "W2", "completed": 5 },
+    { "week": "W3", "completed": 4 },
+    { "week": "W4", "completed": 7 },
+    { "week": "W5", "completed": 6 },
+    { "week": "W6", "completed": 8 }
+  ]
+}

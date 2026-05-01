@@ -1,0 +1,12 @@
+[
+  { "id": "task-1", "title": "Define design system tokens", "description": "Create color, spacing, and typography tokens for the new design system.", "status": "done", "priority": "high", "projectId": "proj-1", "assigneeId": "tm-1", "dueDate": "2026-03-01" },
+  { "id": "task-2", "title": "Build component library", "description": "Implement core UI components using the new design tokens.", "status": "in-progress", "priority": "high", "projectId": "proj-1", "assigneeId": "tm-2", "dueDate": "2026-04-15" },
+  { "id": "task-3", "title": "Migrate dashboard views", "description": "Port existing dashboard views to the new component library.", "status": "todo", "priority": "medium", "projectId": "proj-1", "assigneeId": "tm-3", "dueDate": "2026-05-30" },
+  { "id": "task-4", "title": "User acceptance testing", "description": "Run UAT sessions with key stakeholders for the redesigned platform.", "status": "todo", "priority": "medium", "projectId": "proj-1", "assigneeId": "tm-1", "dueDate": "2026-06-15" },
+  { "id": "task-5", "title": "Design event-driven contracts", "description": "Define async message schemas and contracts for the new gateway.", "status": "in-progress", "priority": "critical", "projectId": "proj-2", "assigneeId": "tm-2", "dueDate": "2026-04-10" },
+  { "id": "task-6", "title": "Implement rate limiter", "description": "Build token-bucket rate limiter for the new gateway.", "status": "review", "priority": "high", "projectId": "proj-2", "assigneeId": "tm-4", "dueDate": "2026-03-28" },
+  { "id": "task-7", "title": "Benchmark ETL throughput", "description": "Run benchmarks on current ETL pipeline to establish baseline metrics.", "status": "todo", "priority": "low", "projectId": "proj-3", "assigneeId": "tm-3", "dueDate": "2026-05-01" },
+  { "id": "task-8", "title": "Setup mobile CI/CD", "description": "Configure Fastlane + GitHub Actions for mobile app builds.", "status": "in-progress", "priority": "medium", "projectId": "proj-4", "assigneeId": "tm-5", "dueDate": "2026-05-15" },
+  { "id": "task-9", "title": "Implement auth flow", "description": "Build OAuth2 + biometric login flow for mobile app.", "status": "todo", "priority": "critical", "projectId": "proj-4", "assigneeId": "tm-6", "dueDate": "2026-06-01" },
+  { "id": "task-10", "title": "Final data migration audit", "description": "Verify all billing records migrated correctly before shutdown.", "status": "done", "priority": "high", "projectId": "proj-5", "assigneeId": "tm-4", "dueDate": "2026-03-15" }
+]
