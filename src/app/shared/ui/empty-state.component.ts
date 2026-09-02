@@ -23,11 +23,11 @@ import { Component, input } from '@angular/core';
     .empty-state__icon {
       width: 40px;
       height: 40px;
-      color: #cbd5e1;
+      color: var(--border-strong);
     }
     .empty-state__message {
       font-size: 0.875rem;
-      color: #94a3b8;
+      color: var(--text-subtle);
       margin: 0;
     }
   `],

@@ -98,11 +98,11 @@ import { Task, TaskStatus, TaskPriority } from '../../core/models';
   `,
   styles: [`
     .tasks-list__header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.75rem; }
-    .tasks-list__header h1 { margin: 0; font-size: 1.5rem; font-weight: 700; color: #1e293b; }
-    .tasks-list__subtitle { font-size: 0.75rem; color: #64748b; }
+    .tasks-list__header h1 { margin: 0; font-size: 1.5rem; font-weight: 700; color: var(--text); }
+    .tasks-list__subtitle { font-size: 0.75rem; color: var(--text-muted); }
     .tasks-list__actions { display: flex; align-items: center; gap: 0.5rem; }
     .tasks-list__search-input {
-      padding: 0.375rem 0.75rem; border: 1px solid #e2e8f0; border-radius: 0.375rem;
+      padding: 0.375rem 0.75rem; border: 1px solid var(--border); border-radius: 0.375rem;
       font-size: 0.8125rem; outline: none; width: 200px; transition: border-color 0.15s ease;
     }
     .tasks-list__search-input:focus { border-color: #3b82f6; }
@@ -113,22 +113,22 @@ import { Task, TaskStatus, TaskPriority } from '../../core/models';
     .tasks-list__add:hover { background: #059669; }
     .tasks-list__filters { display: flex; gap: 0.25rem; margin-bottom: 1rem; }
     .tasks-list__filter {
-      padding: 0.375rem 0.625rem; border-radius: 0.375rem; border: 1px solid #e2e8f0;
-      background: #ffffff; color: #64748b; font-size: 0.75rem; font-weight: 500; cursor: pointer;
+      padding: 0.375rem 0.625rem; border-radius: 0.375rem; border: 1px solid var(--border);
+      background: var(--surface); color: var(--text-muted); font-size: 0.75rem; font-weight: 500; cursor: pointer;
     }
     .tasks-list__filter:hover { border-color: #3b82f6; color: #3b82f6; }
     .tasks-list__filter--active { background: #3b82f6; color: #ffffff; border-color: #3b82f6; }
     .tasks-list__body { display: flex; flex-direction: column; gap: 0.375rem; }
     .form { display: flex; flex-direction: column; gap: 0.875rem; }
-    .form__label { display: flex; flex-direction: column; gap: 0.25rem; font-size: 0.8125rem; font-weight: 500; color: #475569; }
-    .form__input { padding: 0.5rem 0.625rem; border: 1px solid #e2e8f0; border-radius: 0.375rem; font-size: 0.8125rem; outline: none; }
+    .form__label { display: flex; flex-direction: column; gap: 0.25rem; font-size: 0.8125rem; font-weight: 500; color: var(--text-secondary); }
+    .form__input { padding: 0.5rem 0.625rem; border: 1px solid var(--border); border-radius: 0.375rem; font-size: 0.8125rem; outline: none; }
     .form__input:focus { border-color: #3b82f6; }
     .form__textarea { min-height: 60px; resize: vertical; }
     .form__row { display: flex; gap: 0.75rem; }
     .form__row > .form__label { flex: 1; }
     .form__actions { display: flex; justify-content: flex-end; gap: 0.5rem; margin-top: 0.5rem; }
     .form__btn { padding: 0.5rem 1rem; border-radius: 0.375rem; border: none; font-size: 0.8125rem; font-weight: 600; cursor: pointer; }
-    .form__btn--secondary { background: #f1f5f9; color: #475569; }
+    .form__btn--secondary { background: var(--border-soft); color: var(--text-secondary); }
     .form__btn--primary { background: #3b82f6; color: #ffffff; }
     .form__btn--primary:hover { background: #2563eb; }
   `],

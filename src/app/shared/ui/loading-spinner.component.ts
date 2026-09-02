@@ -29,14 +29,14 @@ import { Component, input } from '@angular/core';
     .spinner {
       width: 28px;
       height: 28px;
-      border: 3px solid #e2e8f0;
+      border: 3px solid var(--border);
       border-top-color: #3b82f6;
       border-radius: 50%;
       animation: spin 0.6s linear infinite;
     }
     .spinner-message {
       font-size: 0.8125rem;
-      color: #64748b;
+      color: var(--text-muted);
     }
     @keyframes spin {
       to { transform: rotate(360deg); }

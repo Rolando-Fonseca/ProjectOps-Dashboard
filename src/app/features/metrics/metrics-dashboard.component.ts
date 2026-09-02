@@ -57,7 +57,7 @@ import { LoadingSpinner } from '../../shared/ui/loading-spinner.component';
       margin: 0 0 1.5rem;
       font-size: 1.5rem;
       font-weight: 700;
-      color: #1e293b;
+      color: var(--text);
     }
     .metrics-dashboard__kpis {
       display: grid;

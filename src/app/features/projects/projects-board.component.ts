@@ -103,13 +103,13 @@ import { Project, ProjectStatus } from '../../core/models';
       display: flex; align-items: flex-start; justify-content: space-between;
       margin-bottom: 1.25rem; flex-wrap: wrap; gap: 1rem;
     }
-    .projects-board__header h1 { margin: 0; font-size: 1.5rem; font-weight: 700; color: #1e293b; }
-    .projects-board__count { font-size: 0.8125rem; color: #64748b; }
+    .projects-board__header h1 { margin: 0; font-size: 1.5rem; font-weight: 700; color: var(--text); }
+    .projects-board__count { font-size: 0.8125rem; color: var(--text-muted); }
     .projects-board__actions { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
     .projects-board__filters { display: flex; gap: 0.25rem; }
     .projects-board__filter {
-      padding: 0.375rem 0.625rem; border-radius: 0.375rem; border: 1px solid #e2e8f0;
-      background: #ffffff; color: #64748b; font-size: 0.75rem; font-weight: 500;
+      padding: 0.375rem 0.625rem; border-radius: 0.375rem; border: 1px solid var(--border);
+      background: var(--surface); color: var(--text-muted); font-size: 0.75rem; font-weight: 500;
       cursor: pointer; transition: all 0.15s ease;
     }
     .projects-board__filter:hover { border-color: #3b82f6; color: #3b82f6; }
@@ -122,21 +122,21 @@ import { Project, ProjectStatus } from '../../core/models';
     .projects-board__add:hover { background: #059669; }
     .projects-board__summary {
       display: flex; gap: 2rem; margin-bottom: 1.5rem; padding: 1rem 1.25rem;
-      background: #ffffff; border: 1px solid #e2e8f0; border-radius: 0.75rem;
+      background: var(--surface); border: 1px solid var(--border); border-radius: 0.75rem;
     }
     .summary-stat { display: flex; flex-direction: column; }
-    .summary-stat__value { font-size: 1.25rem; font-weight: 700; color: #1e293b; }
-    .summary-stat__label { font-size: 0.6875rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; }
+    .summary-stat__value { font-size: 1.25rem; font-weight: 700; color: var(--text); }
+    .summary-stat__label { font-size: 0.6875rem; color: var(--text-subtle); text-transform: uppercase; letter-spacing: 0.5px; }
     .projects-board__grid {
       display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem;
     }
     .form { display: flex; flex-direction: column; gap: 0.875rem; }
     .form__label {
       display: flex; flex-direction: column; gap: 0.25rem;
-      font-size: 0.8125rem; font-weight: 500; color: #475569;
+      font-size: 0.8125rem; font-weight: 500; color: var(--text-secondary);
     }
     .form__input {
-      padding: 0.5rem 0.625rem; border: 1px solid #e2e8f0; border-radius: 0.375rem;
+      padding: 0.5rem 0.625rem; border: 1px solid var(--border); border-radius: 0.375rem;
       font-size: 0.8125rem; outline: none; transition: border-color 0.15s ease;
     }
     .form__input:focus { border-color: #3b82f6; }
@@ -147,8 +147,8 @@ import { Project, ProjectStatus } from '../../core/models';
       padding: 0.5rem 1rem; border-radius: 0.375rem; border: none;
       font-size: 0.8125rem; font-weight: 600; cursor: pointer;
     }
-    .form__btn--secondary { background: #f1f5f9; color: #475569; }
-    .form__btn--secondary:hover { background: #e2e8f0; }
+    .form__btn--secondary { background: var(--border-soft); color: var(--text-secondary); }
+    .form__btn--secondary:hover { background: var(--border); }
     .form__btn--primary { background: #3b82f6; color: #ffffff; }
     .form__btn--primary:hover { background: #2563eb; }
   `],

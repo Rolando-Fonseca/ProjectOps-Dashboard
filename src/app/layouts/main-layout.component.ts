@@ -32,7 +32,7 @@ import { Topbar } from '../shared/ui/topbar.component';
     .layout__content {
       flex: 1;
       padding: 1.5rem;
-      background: #f8fafc;
+      background: var(--bg);
       overflow-y: auto;
     }
   `],

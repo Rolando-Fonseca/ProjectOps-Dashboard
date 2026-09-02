@@ -33,8 +33,8 @@ import { TaskService } from '../../core/services/task.service';
   `,
   styles: [`
     .member-card {
-      display: flex; align-items: center; gap: 0.875rem; background: #ffffff;
-      border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1rem 1.125rem;
+      display: flex; align-items: center; gap: 0.875rem; background: var(--surface);
+      border: 1px solid var(--border); border-radius: 0.75rem; padding: 1rem 1.125rem;
       transition: box-shadow 0.15s ease;
     }
     .member-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
@@ -44,23 +44,23 @@ import { TaskService } from '../../core/services/task.service';
       font-size: 0.8125rem; font-weight: 700; flex-shrink: 0;
     }
     .member-card__info { flex: 1; min-width: 0; }
-    .member-card__name { font-size: 0.875rem; font-weight: 600; color: #1e293b; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .member-card__role { font-size: 0.75rem; color: #64748b; }
-    .member-card__email { font-size: 0.6875rem; color: #94a3b8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .member-card__name { font-size: 0.875rem; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .member-card__role { font-size: 0.75rem; color: var(--text-muted); }
+    .member-card__email { font-size: 0.6875rem; color: var(--text-subtle); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .member-card__right { display: flex; flex-direction: column; align-items: flex-end; gap: 0.375rem; flex-shrink: 0; }
     .member-card__stats { display: flex; gap: 0.75rem; }
     .member-card__stat { display: flex; flex-direction: column; align-items: center; }
-    .member-card__stat-value { font-size: 0.9375rem; font-weight: 700; color: #1e293b; line-height: 1; }
-    .member-card__stat-label { font-size: 0.5625rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; }
+    .member-card__stat-value { font-size: 0.9375rem; font-weight: 700; color: var(--text); line-height: 1; }
+    .member-card__stat-label { font-size: 0.5625rem; color: var(--text-subtle); text-transform: uppercase; letter-spacing: 0.5px; }
     .member-card__actions { display: flex; gap: 0.25rem; opacity: 0; transition: opacity 0.15s ease; }
     .member-card:hover .member-card__actions { opacity: 1; }
     .member-card__btn {
       font-size: 0.625rem; font-weight: 500; border: none; cursor: pointer;
-      padding: 0.125rem 0.375rem; border-radius: 0.25rem; color: #475569; background: transparent;
+      padding: 0.125rem 0.375rem; border-radius: 0.25rem; color: var(--text-secondary); background: transparent;
     }
-    .member-card__btn:hover { background: #f1f5f9; }
-    .member-card__btn--danger { color: #dc2626; }
-    .member-card__btn--danger:hover { background: #fef2f2; }
+    .member-card__btn:hover { background: var(--border-soft); }
+    .member-card__btn--danger { color: var(--chip-danger-text); }
+    .member-card__btn--danger:hover { background: var(--chip-danger-soft); }
   `],
 })
 export class MemberCard {

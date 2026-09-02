@@ -25,19 +25,19 @@ import { Kpi } from '../../core/models';
   `,
   styles: [`
     .kpi-card {
-      background: #ffffff;
-      border: 1px solid #e2e8f0;
+      background: var(--surface);
+      border: 1px solid var(--border);
       border-radius: 0.75rem;
       padding: 1rem 1.125rem;
-      border-left: 3px solid #e2e8f0;
+      border-left: 3px solid var(--border);
       transition: border-color 0.15s ease;
     }
     .kpi-card[data-trend="up"] { border-left-color: #10b981; }
     .kpi-card[data-trend="down"] { border-left-color: #ef4444; }
-    .kpi-card[data-trend="neutral"] { border-left-color: #94a3b8; }
+    .kpi-card[data-trend="neutral"] { border-left-color: var(--text-subtle); }
     .kpi-card__label {
       font-size: 0.75rem;
-      color: #64748b;
+      color: var(--text-muted);
       margin-bottom: 0.375rem;
       text-transform: uppercase;
       letter-spacing: 0.3px;
@@ -50,7 +50,7 @@ import { Kpi } from '../../core/models';
     .kpi-card__value {
       font-size: 1.75rem;
       font-weight: 700;
-      color: #1e293b;
+      color: var(--text);
       line-height: 1;
     }
     .kpi-card__change {
@@ -62,7 +62,7 @@ import { Kpi } from '../../core/models';
     }
     .kpi-card[data-trend="up"] .kpi-card__change { color: #10b981; }
     .kpi-card[data-trend="down"] .kpi-card__change { color: #ef4444; }
-    .kpi-card[data-trend="neutral"] .kpi-card__change { color: #94a3b8; }
+    .kpi-card[data-trend="neutral"] .kpi-card__change { color: var(--text-subtle); }
   `],
 })
 export class KpiCard {

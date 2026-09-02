@@ -29,7 +29,7 @@ import { Component, input, output, signal } from '@angular/core';
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      background: #ffffff;
+      background: var(--surface);
       border-radius: 0.75rem;
       min-width: 420px;
       max-width: 560px;
@@ -43,24 +43,24 @@ import { Component, input, output, signal } from '@angular/core';
       align-items: center;
       justify-content: space-between;
       padding: 1rem 1.25rem;
-      border-bottom: 1px solid #e2e8f0;
+      border-bottom: 1px solid var(--border);
     }
     .modal__title {
       margin: 0;
       font-size: 1rem;
       font-weight: 600;
-      color: #1e293b;
+      color: var(--text);
     }
     .modal__close {
       background: none;
       border: none;
       font-size: 1.25rem;
-      color: #94a3b8;
+      color: var(--text-subtle);
       cursor: pointer;
       padding: 0;
       line-height: 1;
     }
-    .modal__close:hover { color: #475569; }
+    .modal__close:hover { color: var(--text-secondary); }
     .modal__body {
       padding: 1.25rem;
     }

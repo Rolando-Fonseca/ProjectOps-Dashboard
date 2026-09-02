@@ -2,6 +2,7 @@ import { Component, computed, inject } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { filter, map } from 'rxjs';
+import { ThemeService } from '../../core/services/theme.service';
 
 @Component({
   selector: 'app-topbar',
@@ -12,6 +13,18 @@ import { filter, map } from 'rxjs';
         <span class="topbar__page-title">{{ pageTitle() }}</span>
       </div>
       <div class="topbar__right">
+        <button class="topbar__theme-toggle" type="button" (click)="themeService.toggle()"
+          [attr.aria-label]="themeService.theme() === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'">
+          @if (themeService.theme() === 'dark') {
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="16" height="16">
+              <circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+            </svg>
+          } @else {
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
+              <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+            </svg>
+          }
+        </button>
         <div class="topbar__avatar" [attr.title]="'Admin'">A</div>
       </div>
     </header>
@@ -19,8 +32,8 @@ import { filter, map } from 'rxjs';
   styles: [`
     .topbar {
       height: 52px;
-      background: #ffffff;
-      border-bottom: 1px solid #e2e8f0;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -30,7 +43,29 @@ import { filter, map } from 'rxjs';
     .topbar__page-title {
       font-size: 0.9375rem;
       font-weight: 600;
-      color: #1e293b;
+      color: var(--text);
+    }
+    .topbar__right {
+      display: flex;
+      align-items: center;
+      gap: 0.625rem;
+    }
+    .topbar__theme-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 0.5rem;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: color 0.15s ease, border-color 0.15s ease;
+    }
+    .topbar__theme-toggle:hover {
+      color: var(--text);
+      border-color: var(--border-strong);
     }
     .topbar__avatar {
       width: 30px;
@@ -49,6 +84,7 @@ import { filter, map } from 'rxjs';
 })
 export class Topbar {
   private readonly router = inject(Router);
+  protected readonly themeService = inject(ThemeService);
 
   private readonly routeTitles: Record<string, string> = {
     '/projects': 'Projects',

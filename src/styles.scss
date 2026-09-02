@@ -1,5 +1,63 @@
 @use "tailwindcss";
 
+// Design tokens del dashboard. Los componentes solo usan estas variables;
+// el tema se decide con data-theme en <html> (lo gestiona ThemeService).
+:root {
+  color-scheme: light;
+
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --border: #e2e8f0;
+  --border-soft: #f1f5f9;
+  --border-strong: #cbd5e1;
+
+  --text: #1e293b;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --text-subtle: #94a3b8;
+
+  --chip-info-bg: #dbeafe;
+  --chip-info-text: #1d4ed8;
+  --chip-info-soft: #eff6ff;
+  --chip-warn-bg: #fef3c7;
+  --chip-warn-text: #b45309;
+  --chip-success-bg: #d1fae5;
+  --chip-success-text: #047857;
+  --chip-danger-bg: #fee2e2;
+  --chip-danger-text: #dc2626;
+  --chip-danger-soft: #fef2f2;
+  --chip-orange-bg: #ffedd5;
+  --chip-orange-text: #ea580c;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg: #0f172a;
+  --surface: #1e293b;
+  --border: #334155;
+  --border-soft: #283548;
+  --border-strong: #475569;
+
+  --text: #f1f5f9;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --text-subtle: #64748b;
+
+  --chip-info-bg: #1e3a5f;
+  --chip-info-text: #93c5fd;
+  --chip-info-soft: #172554;
+  --chip-warn-bg: #453a16;
+  --chip-warn-text: #fcd34d;
+  --chip-success-bg: #123b2c;
+  --chip-success-text: #6ee7b7;
+  --chip-danger-bg: #431a1a;
+  --chip-danger-text: #f87171;
+  --chip-danger-soft: #3a1515;
+  --chip-orange-bg: #4a2510;
+  --chip-orange-text: #fdba74;
+}
+
 *, *::before, *::after {
   box-sizing: border-box;
 }
@@ -8,6 +66,17 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
-  background: #f8fafc;
-  color: #1e293b;
+  background: var(--bg);
+  color: var(--text);
+}
+
+// Los estilos de componentes van encapsulados; los controles de formulario
+// heredan tema desde aquí para no repetirlo en cada componente.
+input, textarea, select {
+  background: var(--surface);
+  color: var(--text);
+}
+
+input::placeholder, textarea::placeholder {
+  color: var(--text-subtle);
 }
