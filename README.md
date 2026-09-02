@@ -2,7 +2,7 @@
 
 Panel interno para visualizar proyectos, tareas, equipo y métricas de un equipo de software. Proyecto **P3** del módulo (Sesión 8 — Angular 20/21: signals + zoneless), construido orquestando IA con foco en ingeniería de contexto.
 
-> **Demo:** _pendiente de despliegue_ · **Docs:** [docs/architecture.md](docs/architecture.md) · [docs/prompts.md](docs/prompts.md)
+> **Demo:** https://rolando-fonseca.github.io/ProjectOps-Dashboard/ · **Docs:** [docs/architecture.md](docs/architecture.md) · [docs/prompts.md](docs/prompts.md)
 
 ## Qué demuestra este proyecto
 
@@ -70,6 +70,15 @@ src/app/
 
 - **Desarrollo**: `json-server` la sirve en `/api` (via proxy).
 - **Producción**: `npm run sync:mock` (enganchado a `prebuild`) la embebe como `mock-db.ts` y el interceptor responde desde memoria, con CRUD funcional por sesión.
+
+## Despliegue
+
+Alojado en GitHub Pages con despliegue continuo: cada `push` a `main` ejecuta el workflow
+([.github/workflows/deploy-pages.yml](.github/workflows/deploy-pages.yml)) que **corre los
+33 tests**, hace el build con `--base-href` y publica. La demo no necesita backend: el
+build de producción sirve la API desde el mock embebido (ver arquitectura). El fichero
+`404.html` es una copia de `index.html` para que las rutas profundas (`/tasks`,
+`/projects/:id`) funcionen al entrar directamente.
 
 ## Documentación
 
