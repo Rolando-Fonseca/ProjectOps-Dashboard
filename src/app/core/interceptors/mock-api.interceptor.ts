@@ -6,13 +6,12 @@ import {
   HttpResponse,
 } from '@angular/common/http';
 import { Observable, delay, of, throwError } from 'rxjs';
-import { environment } from '../../../environments/environment';
 import { MOCK_DB, MockDb } from '../data/mock-db';
 
 // Backend simulado en memoria: replica la API de json-server (/api/*) dentro
 // del propio bundle, para que la demo desplegada funcione sin servidor.
-// En desarrollo (environment.useMockApi = false) se desactiva y las peticiones
-// siguen su curso hacia json-server a través del proxy.
+// app.config decide si se registra según environment.useMockApi; en desarrollo
+// las peticiones van a json-server a través del proxy.
 
 const LATENCY_MS = 250;
 
@@ -77,7 +76,7 @@ export function mockApiInterceptor(
   req: HttpRequest<unknown>,
   next: HttpHandlerFn
 ): Observable<HttpEvent<unknown>> {
-  if (!environment.useMockApi || !req.url.startsWith('/api/')) {
+  if (!req.url.startsWith('/api/')) {
     return next(req);
   }
 
