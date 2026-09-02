@@ -1,6 +1,46 @@
 # Arquitectura — ProjectOps Dashboard
 
-Decisiones técnicas del proyecto y el porqué de cada una. Complementa al [README](../README.md); el proceso de generación con IA está en [prompts.md](prompts.md).
+Decisiones técnicas del proyecto y el porqué de cada una. Complementa al [README](../README.md); el proceso de generación con IA está en [prompts.md](prompts.md) y el mapa de señales en [signals.md](signals.md).
+
+## Diagrama general
+
+```mermaid
+graph LR
+    subgraph Browser["Navegador (zoneless, sin zone.js)"]
+        subgraph Features["Features (standalone + lazy)"]
+            PB["ProjectsBoard<br/>/projects"]
+            PD["ProjectDetail<br/>/projects/:id"]
+            TL["TasksList<br/>/tasks"]
+            TO["TeamOverview<br/>/team"]
+            MD["MetricsDashboard<br/>/metrics"]
+        end
+
+        subgraph Core["Core (providedIn: root)"]
+            PS["ProjectService<br/>httpResource + computeds"]
+            TS["TaskService<br/>httpResource + computeds"]
+            MS["TeamService<br/>httpResource + computeds"]
+            XS["MetricsService<br/>httpResource"]
+            TH["ThemeService<br/>linkedSignal + effect"]
+        end
+
+        LAY["MainLayout<br/>Sidebar + Topbar"] --> Features
+        PB & PD --> PS
+        PD & TL & MD --> TS
+        PD & TO & MD --> MS
+        MD --> XS
+        LAY --> TH
+    end
+
+    subgraph HTTP["Capa HTTP"]
+        INT{"environment<br/>.useMockApi"}
+    end
+
+    PS & TS & MS & XS --> INT
+    INT -- "dev: proxy /api" --> JS["json-server<br/>(db.json)"]
+    INT -- "prod: interceptor" --> MOCK["mock-api.interceptor<br/>(mock-db.ts en memoria)"]
+    DB["db.json<br/>única fuente de datos"] --> JS
+    DB -- "npm run sync:mock" --> MOCK
+```
 
 ## 1. Angular zoneless: qué cambia de verdad
 

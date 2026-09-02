@@ -73,7 +73,9 @@ src/app/
 
 ## Documentación
 
-- [docs/architecture.md](docs/architecture.md) — decisiones de arquitectura: signals, zoneless, capa de datos, tema.
+- [docs/architecture.md](docs/architecture.md) — decisiones de arquitectura + diagrama Mermaid: zoneless, capa de datos, tema.
+- [docs/signals.md](docs/signals.md) — catálogo de señales y grafo de dependencias entre ellas.
+- [docs/backlog.md](docs/backlog.md) — historias de usuario (implementadas y pendientes).
 - [docs/prompts.md](docs/prompts.md) — ingeniería de contexto: qué se pidió a la IA, en qué orden y con qué contexto.
 - [docs/brief.json](docs/brief.json) — brief original del proyecto.
 
