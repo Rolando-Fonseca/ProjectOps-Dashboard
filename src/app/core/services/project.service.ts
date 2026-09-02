@@ -1,71 +1,70 @@
-import { Injectable, signal, computed } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Injectable, computed, inject, signal } from '@angular/core';
+import { HttpClient, httpResource } from '@angular/common/http';
 import { Project, ProjectStatus } from '../models';
 
 const API = '/api/projects';
 
 @Injectable({ providedIn: 'root' })
 export class ProjectService {
-  private readonly _projects = signal<Project[]>([]);
-  private readonly _loading = signal(false);
-  private readonly _error = signal<string | null>(null);
+  private readonly http = inject(HttpClient);
 
-  readonly projects = this._projects.asReadonly();
-  readonly loading = this._loading.asReadonly();
-  readonly error = this._error.asReadonly();
+  // httpResource dispara la carga al crearse y expone value/isLoading/error
+  // como signals; las mutaciones escriben en value() para no refetchear.
+  private readonly resource = httpResource<Project[]>(() => API, { defaultValue: [] });
+  private readonly mutationError = signal<string | null>(null);
 
-  readonly activeProjects = computed(() =>
-    this._projects().filter(p => p.status === 'active')
+  readonly projects = this.resource.value.asReadonly();
+  readonly loading = this.resource.isLoading;
+  readonly error = computed(
+    () => this.mutationError() ?? this.resource.error()?.message ?? null
   );
 
-  readonly projectCount = computed(() => this._projects().length);
+  readonly activeProjects = computed(() =>
+    this.projects().filter(p => p.status === 'active')
+  );
+
+  readonly projectCount = computed(() => this.projects().length);
 
   readonly byStatus = computed(() => {
     const map: Record<ProjectStatus, Project[]> = { active: [], 'on-hold': [], completed: [], archived: [] };
-    for (const p of this._projects()) {
+    for (const p of this.projects()) {
       map[p.status].push(p);
     }
     return map;
   });
 
   readonly avgProgress = computed(() => {
-    const list = this._projects();
+    const list = this.projects();
     return list.length === 0 ? 0 : Math.round(list.reduce((s, p) => s + p.progress, 0) / list.length);
   });
 
-  constructor(private http: HttpClient) {}
-
-  loadAll(): void {
-    this._loading.set(true);
-    this._error.set(null);
-    this.http.get<Project[]>(API).subscribe({
-      next: data => { this._projects.set(data); this._loading.set(false); },
-      error: err => { this._error.set(err.message); this._loading.set(false); },
-    });
+  reload(): void {
+    this.mutationError.set(null);
+    this.resource.reload();
   }
 
   projectById(id: string) {
-    return computed(() => this._projects().find(p => p.id === id));
+    return computed(() => this.projects().find(p => p.id === id));
   }
 
   add(project: Omit<Project, 'id'>): void {
     this.http.post<Project>(API, project).subscribe({
-      next: created => this._projects.update(list => [...list, created]),
-      error: err => this._error.set(err.message),
+      next: created => this.resource.value.update(list => [...list, created]),
+      error: err => this.mutationError.set(err.message),
     });
   }
 
   update(id: string, changes: Partial<Project>): void {
     this.http.patch<Project>(`${API}/${id}`, changes).subscribe({
-      next: updated => this._projects.update(list => list.map(p => p.id === id ? updated : p)),
-      error: err => this._error.set(err.message),
+      next: updated => this.resource.value.update(list => list.map(p => p.id === id ? updated : p)),
+      error: err => this.mutationError.set(err.message),
     });
   }
 
   remove(id: string): void {
     this.http.delete(`${API}/${id}`).subscribe({
-      next: () => this._projects.update(list => list.filter(p => p.id !== id)),
-      error: err => this._error.set(err.message),
+      next: () => this.resource.value.update(list => list.filter(p => p.id !== id)),
+      error: err => this.mutationError.set(err.message),
     });
   }
 }

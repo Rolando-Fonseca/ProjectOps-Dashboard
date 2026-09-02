@@ -154,12 +154,6 @@ export class TasksList {
     return tasks;
   });
 
-  constructor() {
-    this.taskService.loadAll();
-    this.projectService.loadAll();
-    this.teamService.loadAll();
-  }
-
   onSearch(event: Event): void {
     this.searchQuery.set((event.target as HTMLInputElement).value);
   }

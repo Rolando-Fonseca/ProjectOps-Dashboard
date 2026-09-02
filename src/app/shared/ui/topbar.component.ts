@@ -1,5 +1,7 @@
 import { Component, computed, inject } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { filter, map } from 'rxjs';
 
 @Component({
   selector: 'app-topbar',
@@ -55,8 +57,18 @@ export class Topbar {
     '/metrics': 'Metrics',
   };
 
+  // En zoneless nada re-renderiza "solo": router.url no es reactivo, así que
+  // convertimos las navegaciones en un signal para que el computed se actualice.
+  private readonly url = toSignal(
+    this.router.events.pipe(
+      filter(e => e instanceof NavigationEnd),
+      map(() => this.router.url)
+    ),
+    { initialValue: this.router.url }
+  );
+
   readonly pageTitle = computed(() => {
-    const url = this.router.url;
+    const url = this.url();
     if (url.includes('/projects/') && !url.endsWith('/projects')) return 'Project Detail';
     const base = '/' + url.split('/').slice(1, 2).join('');
     return this.routeTitles[base] ?? 'Dashboard';

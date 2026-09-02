@@ -1,75 +1,72 @@
-import { Injectable, signal, computed } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Injectable, computed, inject, signal } from '@angular/core';
+import { HttpClient, httpResource } from '@angular/common/http';
 import { Task, TaskStatus } from '../models';
 
 const API = '/api/tasks';
 
 @Injectable({ providedIn: 'root' })
 export class TaskService {
-  private readonly _tasks = signal<Task[]>([]);
-  private readonly _loading = signal(false);
-  private readonly _error = signal<string | null>(null);
+  private readonly http = inject(HttpClient);
 
-  readonly tasks = this._tasks.asReadonly();
-  readonly loading = this._loading.asReadonly();
-  readonly error = this._error.asReadonly();
+  private readonly resource = httpResource<Task[]>(() => API, { defaultValue: [] });
+  private readonly mutationError = signal<string | null>(null);
+
+  readonly tasks = this.resource.value.asReadonly();
+  readonly loading = this.resource.isLoading;
+  readonly error = computed(
+    () => this.mutationError() ?? this.resource.error()?.message ?? null
+  );
 
   readonly byStatus = computed(() => {
     const map: Record<TaskStatus, Task[]> = { todo: [], 'in-progress': [], review: [], done: [] };
-    for (const t of this._tasks()) {
+    for (const t of this.tasks()) {
       map[t.status].push(t);
     }
     return map;
   });
 
   readonly highPriority = computed(() =>
-    this._tasks().filter(t => t.priority === 'high' || t.priority === 'critical')
+    this.tasks().filter(t => t.priority === 'high' || t.priority === 'critical')
   );
 
-  readonly openCount = computed(() => this._tasks().filter(t => t.status !== 'done').length);
-  readonly doneCount = computed(() => this._tasks().filter(t => t.status === 'done').length);
+  readonly openCount = computed(() => this.tasks().filter(t => t.status !== 'done').length);
+  readonly doneCount = computed(() => this.tasks().filter(t => t.status === 'done').length);
   readonly completionRate = computed(() => {
-    const total = this._tasks().length;
+    const total = this.tasks().length;
     return total === 0 ? 0 : Math.round((this.doneCount() / total) * 100);
   });
 
-  constructor(private http: HttpClient) {}
-
-  loadAll(): void {
-    this._loading.set(true);
-    this._error.set(null);
-    this.http.get<Task[]>(API).subscribe({
-      next: data => { this._tasks.set(data); this._loading.set(false); },
-      error: err => { this._error.set(err.message); this._loading.set(false); },
-    });
+  reload(): void {
+    this.mutationError.set(null);
+    this.resource.reload();
   }
 
   tasksByProject(projectId: string) {
-    return computed(() => this._tasks().filter(t => t.projectId === projectId));
+    return computed(() => this.tasks().filter(t => t.projectId === projectId));
   }
 
   tasksByAssignee(assigneeId: string) {
-    return computed(() => this._tasks().filter(t => t.assigneeId === assigneeId));
+    return computed(() => this.tasks().filter(t => t.assigneeId === assigneeId));
   }
 
   add(task: Omit<Task, 'id'>): void {
     this.http.post<Task>(API, task).subscribe({
-      next: created => this._tasks.update(list => [...list, created]),
-      error: err => this._error.set(err.message),
+      next: created => this.resource.value.update(list => [...list, created]),
+      error: err => this.mutationError.set(err.message),
     });
   }
 
   update(id: string, changes: Partial<Task>): void {
     this.http.patch<Task>(`${API}/${id}`, changes).subscribe({
-      next: updated => this._tasks.update(list => list.map(t => t.id === id ? updated : t)),
-      error: err => this._error.set(err.message),
+      next: updated => this.resource.value.update(list => list.map(t => t.id === id ? updated : t)),
+      error: err => this.mutationError.set(err.message),
     });
   }
 
   remove(id: string): void {
     this.http.delete(`${API}/${id}`).subscribe({
-      next: () => this._tasks.update(list => list.filter(t => t.id !== id)),
-      error: err => this._error.set(err.message),
+      next: () => this.resource.value.update(list => list.filter(t => t.id !== id)),
+      error: err => this.mutationError.set(err.message),
     });
   }
 }

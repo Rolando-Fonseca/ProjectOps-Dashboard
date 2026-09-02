@@ -124,11 +124,6 @@ export class TeamOverview {
     return members.filter(m => m.name.toLowerCase().includes(query) || m.role.toLowerCase().includes(query));
   });
 
-  constructor() {
-    this.teamService.loadAll();
-    this.projectService.loadAll();
-  }
-
   onSearch(event: Event): void {
     this.searchQuery.set((event.target as HTMLInputElement).value);
   }

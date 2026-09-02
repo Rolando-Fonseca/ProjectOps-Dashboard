@@ -1,6 +1,5 @@
-import { Component, inject, computed, DestroyRef, signal } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Component, inject, computed, input } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { ProjectService } from '../../core/services/project.service';
 import { TaskService } from '../../core/services/task.service';
 import { TeamService } from '../../core/services/team.service';
@@ -260,36 +259,14 @@ import { LoadingSpinner } from '../../shared/ui/loading-spinner.component';
   `],
 })
 export class ProjectDetail {
-  private readonly route = inject(ActivatedRoute);
-  private readonly destroyRef = inject(DestroyRef);
   protected readonly projectService = inject(ProjectService);
   private readonly taskService = inject(TaskService);
   private readonly teamService = inject(TeamService);
 
-  private readonly projectId = signal<string | null>(null);
+  // withComponentInputBinding: el parámetro :id de la ruta llega como signal input
+  readonly id = input.required<string>();
 
-  readonly project = computed(() => {
-    const id = this.projectId();
-    return id ? this.projectService.projectById(id)() : undefined;
-  });
-
-  readonly projectTasks = computed(() => {
-    const id = this.projectId();
-    return id ? this.taskService.tasksByProject(id)() : [];
-  });
-
-  readonly projectMembers = computed(() => {
-    const id = this.projectId();
-    return id ? this.teamService.membersByProject(id)() : [];
-  });
-
-  constructor() {
-    this.projectService.loadAll();
-    this.taskService.loadAll();
-    this.teamService.loadAll();
-
-    this.route.paramMap
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(params => this.projectId.set(params.get('id')));
-  }
+  readonly project = computed(() => this.projectService.projectById(this.id())());
+  readonly projectTasks = computed(() => this.taskService.tasksByProject(this.id())());
+  readonly projectMembers = computed(() => this.teamService.membersByProject(this.id())());
 }

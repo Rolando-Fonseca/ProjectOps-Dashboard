@@ -167,10 +167,6 @@ export class ProjectsBoard {
     return filter ? projects.filter(p => p.status === filter) : projects;
   });
 
-  constructor() {
-    this.projectService.loadAll();
-  }
-
   openAdd(): void {
     this.editingId.set(null);
     this.form = { name: '', description: '', status: 'active', progress: 0, startDate: '', endDate: '' };

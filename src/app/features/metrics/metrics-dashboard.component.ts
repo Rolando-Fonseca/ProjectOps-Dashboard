@@ -1,6 +1,5 @@
 import { Component, inject, computed } from '@angular/core';
 import { MetricsService } from '../../core/services/metrics.service';
-import { ProjectService } from '../../core/services/project.service';
 import { TaskService } from '../../core/services/task.service';
 import { TeamService } from '../../core/services/team.service';
 import { KpiCard } from './kpi-card.component';
@@ -75,7 +74,6 @@ import { LoadingSpinner } from '../../shared/ui/loading-spinner.component';
 })
 export class MetricsDashboard {
   protected readonly metricsService = inject(MetricsService);
-  private readonly projectService = inject(ProjectService);
   private readonly taskService = inject(TaskService);
   private readonly teamService = inject(TeamService);
 
@@ -106,11 +104,4 @@ export class MetricsDashboard {
   readonly memberTaskData = computed(() =>
     this.teamService.members().map(m => this.taskService.tasksByAssignee(m.id)().length)
   );
-
-  constructor() {
-    this.metricsService.loadAll();
-    this.projectService.loadAll();
-    this.taskService.loadAll();
-    this.teamService.loadAll();
-  }
 }
